@@ -62,8 +62,8 @@ def translate(verbose=True):
             ch = idx2tgt[pred.item()]
             # 输出当前步信息
             if verbose:
-                print(
-                    f"Step {step + 1}: 预测字符='{ch}', 隐藏状态前5位={hidden[0, 0, :5].cpu().numpy()}")
+                print(f"Step {step + 1}: 预测字符='{ch}', "
+                      f"隐藏状态前5位={hidden[0, 0, :5].cpu().numpy()}")
             if ch == '<EOS>':
                 break
             result.append(ch)
