@@ -105,4 +105,19 @@ cython_debug/
 
 # Environment variables
 .env
-.env.* 
+.env.*
+
+# Custom: 项目常见排除
+venv/
+ENV/
+env/
+*.swp
+*.swo
+*.bak
+*.tmp
+*.log
+logs/
+data/
+output/
+results/
+.DS_Store 
