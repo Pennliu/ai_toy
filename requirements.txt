@@ -1,0 +1,7 @@
+torch
+numpy
+matplotlib
+jupyter
+flake8
+black
+autopep8 
