@@ -1,42 +1,43 @@
 ---
-description:
-globs:
-alwaysApply: false
+description: 
+globs: ["**/*.py"]
+alwaysApply: true
 ---
-# Python 项目开发规范
+# Python Project Development Guidelines
 
-## 代码风格
-- 遵循 PEP8 代码风格，推荐使用 black 或 autopep8 自动格式化，flake8 进行静态检查。
-- 变量、函数、方法名使用 snake_case，类名使用 PascalCase。
-- 每行代码不超过 88 字符（black 默认），如需例外请在特殊情况下用 noqa 标记。
-- 避免使用通配符 import（如 from xxx import *）。
+## Code Style
+- Follow PEP8 code style. Use black or autopep8 for auto-formatting, and flake8 for static checking.
+- Use snake_case for variables, functions, and method names; use PascalCase for class names.
+- Limit each line to 88 characters (black default). Use noqa for justified exceptions.
+- Avoid wildcard imports (e.g., from xxx import *).
 
-## 注释与文档
-- 所有模块、类、函数必须添加 docstring，格式遵循 PEP257。
-- 复杂逻辑应有必要的行内注释，注释内容简明扼要，使用中文或英文均可，但需统一。
-- 公共 API 需在 docstring 中注明参数、返回值、异常和用法示例。
+## Comments and Documentation
+- All modules, classes, and functions must include PEP257-style docstrings, covering purpose, parameters (Args), return values (Returns), and exceptions (Raises).
+- Docstrings are recommended to follow Google or NumPy style, and should be concise, accurate, and complete.
+- Complex logic should have necessary inline comments. Comments should be concise and consistent in language (English or Chinese, but unified per project).
+- Public APIs must document parameters, return values, exceptions, and usage examples in the docstring.
 
-## 依赖管理
-- 所有依赖必须写入 requirements.txt 和/或 pyproject.toml。
-- 推荐使用 venv 或 poetry 进行虚拟环境和依赖管理。
-- 新增依赖时，需同步更新依赖文件并在 README.md 说明安装方法。
+## Dependency Management
+- All dependencies must be listed in requirements.txt and/or pyproject.toml.
+- Use venv or poetry for virtual environment and dependency management.
+- When adding dependencies, update dependency files and document installation in README.md.
 
-## 代码结构
-- 按功能模块组织代码，避免单文件过大。
-- 公共工具函数建议放在 utils/ 目录。
-- 测试代码与主代码分离，建议放在 tests/ 目录，测试用例命名以 test_ 开头。
+## Code Structure
+- Organize code by functional modules; avoid overly large single files.
+- Common utility functions should be placed in a utils/ directory.
+- Separate test code from main code; place tests in a tests/ directory, and name test cases with test_ prefix.
 
-## 版本控制与提交
-- .gitignore 应排除虚拟环境、日志、数据、临时文件等。
-- 提交信息遵循 Conventional Commits 规范（如 feat, fix, chore, docs, refactor）。
-- 重要变更需在 README.md 或 CHANGELOG.md 记录。
+## Version Control and Commits
+- .gitignore should exclude virtual environments, logs, data, and temporary files.
+- Commit messages should follow the Conventional Commits specification (e.g., feat, fix, chore, docs, refactor).
+- Major changes should be recorded in README.md or CHANGELOG.md.
 
-## 安全与健壮性
-- 避免硬编码敏感信息，使用环境变量管理密钥等。
-- 重要操作需加异常处理，避免程序崩溃。
-- 推荐使用 type hints 增强代码可读性和可维护性。
+## Security and Robustness
+- Avoid hardcoding sensitive information; use environment variables for secrets.
+- Add exception handling for critical operations to prevent crashes.
+- Use type hints to improve code readability and maintainability.
 
-## 其他
-- 推荐使用 pre-commit 钩子自动格式化和 lint 检查。
-- 代码合并前需通过所有测试和 lint 检查。
-- 定期更新依赖，及时修复安全漏洞。
+## Others
+- Use pre-commit hooks for auto-formatting and lint checking.
+- All tests and lint checks must pass before merging code.
+- Regularly update dependencies and fix security vulnerabilities in a timely manner.
