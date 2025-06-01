@@ -29,7 +29,12 @@ alwaysApply: true
 
 ## Version Control and Commits
 - .gitignore should exclude virtual environments, logs, data, and temporary files.
-- Commit messages should follow the Conventional Commits specification (e.g., feat, fix, chore, docs, refactor).
+- Commit messages must follow the Conventional Commits specification:
+  - Format: <type>(<scope>): <description>
+  - Common types: feat, fix, docs, style, refactor, test, chore
+  - Example: feat(model): add transformer encoder support
+  - Example: fix(utils): handle None input in tokenizer
+  - Example: docs(readme): update installation guide
 - Major changes should be recorded in README.md or CHANGELOG.md.
 
 ## Security and Robustness
