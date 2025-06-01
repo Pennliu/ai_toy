@@ -5,38 +5,39 @@ import torch.optim as optim
 # =====================
 # 1. 词表和数据准备
 # =====================
-SRC_VOCAB = ['<BOS>', '<EOS>', '我', '爱', '你']  # 中文字符表
+SRC_VOCAB = ["<BOS>", "<EOS>", "我", "爱", "你"]  # 中文字符表
 TGT_VOCAB = [
-    '<BOS>',
-    '<EOS>',
-    'I',
-    ' ',
-    'l',
-    'o',
-    'v',
-    'e',
-    'y',
-    'o',
-    'u']  # 英文字符表
+    "<BOS>",
+    "<EOS>",
+    "I",
+    " ",
+    "l",
+    "o",
+    "v",
+    "e",
+    "y",
+    "o",
+    "u",
+]  # 英文字符表
 
 src2idx = {ch: i for i, ch in enumerate(SRC_VOCAB)}
 tgt2idx = {ch: i for i, ch in enumerate(TGT_VOCAB)}
 idx2tgt = {i: ch for ch, i in tgt2idx.items()}
 
-src_seq = [src2idx['我'], src2idx['爱'], src2idx['你']]
+src_seq = [src2idx["我"], src2idx["爱"], src2idx["你"]]
 tgt_seq = [
-    tgt2idx['<BOS>'],
-    tgt2idx['I'],
-    tgt2idx[' '],
-    tgt2idx['l'],
-    tgt2idx['o'],
-    tgt2idx['v'],
-    tgt2idx['e'],
-    tgt2idx[' '],
-    tgt2idx['y'],
-    tgt2idx['o'],
-    tgt2idx['u'],
-    tgt2idx['<EOS>']
+    tgt2idx["<BOS>"],
+    tgt2idx["I"],
+    tgt2idx[" "],
+    tgt2idx["l"],
+    tgt2idx["o"],
+    tgt2idx["v"],
+    tgt2idx["e"],
+    tgt2idx[" "],
+    tgt2idx["y"],
+    tgt2idx["o"],
+    tgt2idx["u"],
+    tgt2idx["<EOS>"],
 ]
 
 # =====================
@@ -48,13 +49,7 @@ MAX_LEN = 16
 
 
 class Seq2SeqTransformer(nn.Module):
-    def __init__(
-            self,
-            src_vocab_size,
-            tgt_vocab_size,
-            d_model,
-            nhead,
-            max_len):
+    def __init__(self, src_vocab_size, tgt_vocab_size, d_model, nhead, max_len):
         super().__init__()
         self.src_embed = nn.Embedding(src_vocab_size, d_model)
         self.tgt_embed = nn.Embedding(tgt_vocab_size, d_model)
@@ -92,7 +87,7 @@ for epoch in range(300):
     model.train()
     src_tensor = torch.tensor(src_seq).unsqueeze(0)  # [1, 3]
     tgt_tensor = torch.tensor(tgt_seq[:-1]).unsqueeze(0)  # [1, 11]
-    target = torch.tensor(tgt_seq[1:]).unsqueeze(0)       # [1, 11]
+    target = torch.tensor(tgt_seq[1:]).unsqueeze(0)  # [1, 11]
     logits = model(src_tensor, tgt_tensor)  # [1, 11, vocab]
     loss = criterion(logits.squeeze(0), target.squeeze(0))
     optimizer.zero_grad()
@@ -102,33 +97,33 @@ for epoch in range(300):
         pred_seq = []
         model.eval()
         src_tensor = torch.tensor(src_seq).unsqueeze(0)
-        tgt_input = torch.tensor([[tgt2idx['<BOS>']]])
+        tgt_input = torch.tensor([[tgt2idx["<BOS>"]]])
         for _ in range(20):
             logits = model(src_tensor, tgt_input)
             next_token = logits[0, -1].argmax().item()
             ch = idx2tgt[next_token]
-            if ch == '<EOS>':
+            if ch == "<EOS>":
                 break
             pred_seq.append(ch)
-            tgt_input = torch.cat(
-                [tgt_input, torch.tensor([[next_token]])], dim=1
-            )
+            tgt_input = torch.cat([tgt_input, torch.tensor([[next_token]])], dim=1)
         print(
             f"Epoch {
                 epoch +
                 1}, Loss: {
                 loss.item():.4f}, 当前预测: {
-                ''.join(pred_seq)}")
+                ''.join(pred_seq)}"
+        )
 
 
 # =====================
 # 4. 推理（翻译生成）
 # =====================
 
+
 def translate(verbose=True):
     model.eval()
     src_tensor = torch.tensor(src_seq).unsqueeze(0)
-    tgt_input = torch.tensor([[tgt2idx['<BOS>']]])
+    tgt_input = torch.tensor([[tgt2idx["<BOS>"]]])
     result = []
     for step in range(20):
         logits = model(src_tensor, tgt_input)
@@ -136,13 +131,11 @@ def translate(verbose=True):
         ch = idx2tgt[next_token]
         if verbose:
             print(f"Step {step + 1}: 预测字符='{ch}'")
-        if ch == '<EOS>':
+        if ch == "<EOS>":
             break
         result.append(ch)
-        tgt_input = torch.cat(
-            [tgt_input, torch.tensor([[next_token]])], dim=1
-        )
-    return ''.join(result)
+        tgt_input = torch.cat([tgt_input, torch.tensor([[next_token]])], dim=1)
+    return "".join(result)
 
 
 print("\n推理详细过程：")
