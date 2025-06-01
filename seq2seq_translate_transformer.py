@@ -108,8 +108,7 @@ for epoch in range(300):
             tgt_input = torch.cat([tgt_input, torch.tensor([[next_token]])], dim=1)
         print(
             f"Epoch {
-                epoch +
-                1}, Loss: {
+                epoch + 1}, Loss: {
                 loss.item():.4f}, 当前预测: {
                 ''.join(pred_seq)}"
         )

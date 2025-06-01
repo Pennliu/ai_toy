@@ -26,7 +26,7 @@ vocab_size = len(chars)  # Vocabulary size
 seq_len = 4  # Input sequence length
 data = []  # Store training samples
 for i in range(len(text) - seq_len):  # Iterate over all possible substrings
-    x_str = text[i : i + seq_len]  # Input substring
+    x_str = text[i:i + seq_len]  # Input substring
     y_str = text[i + seq_len]  # Target character
     x = torch.tensor([stoi[ch] for ch in x_str])  # Input as index tensor
     y = torch.tensor(stoi[y_str])  # Target as index

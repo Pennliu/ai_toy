@@ -26,7 +26,7 @@ vocab_size = len(chars)
 seq_len = 4
 data = []
 for i in range(len(text) - seq_len):
-    x_str = text[i : i + seq_len]
+    x_str = text[i: i + seq_len]
     y_str = text[i + seq_len]
     x = torch.tensor([stoi[ch] for ch in x_str])
     y = torch.tensor(stoi[y_str])
